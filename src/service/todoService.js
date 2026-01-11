@@ -1,3 +1,4 @@
+import { response } from "express";
 import { getAllTitle,createTitle,updateTitle,updateStatus,deleteTitle} from "..//models/todoModell.js";
 
 
@@ -37,15 +38,17 @@ export const updateStatusService = async(id,status)=>{
     if(status !==0 && status !==1){
         throw new Error ('status must be 0 or 1')
     }
-    
     const [result]=await updateStatus(id,status)
-
     if(result.affectedRows!=1){
-        throw new Error ('update status failed')
+        return {
+            status: 404,
+            Message:"Data Tidak Ditemukan"
+        }
+        
     }
-
     return result
 }
+
 
 export const deleteTitleService = async(id) => {
     const [result]=await deleteTitle(id)

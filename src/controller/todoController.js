@@ -39,6 +39,9 @@ export const updateStatusController = async (req,res)=>{
         const {id} = req.params
         const {status}=req.body
         const data =await updateStatusService(id,status)
+        if(data.status){
+            response(data.status,data.Message, [], res)
+        }
             response(200,"Berhasil Update status",data,res)
     }catch(err){
         console.log(err)
